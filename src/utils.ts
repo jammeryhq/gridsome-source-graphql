@@ -1,10 +1,12 @@
 import consola from 'consola'
 import { hirestimeNode } from 'hirestime'
 
-export const reporter = consola.create({ defaults: { tag: 'gridsome-source-wordpress-experimental' } })
+export const reporter = consola.create({ defaults: { tag: 'gridsome-source-graphql' } })
 
 export interface Timer {
   (): {
+    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     log(message: string, format?: string): boolean | void
   }
 }
@@ -22,6 +24,7 @@ export interface Utils {
   concurrency: number
   log: boolean
   perPage: number
+  // eslint-disable-next-line no-unused-vars
   prefix(type: string): string
   timer: Timer
   typeName: string

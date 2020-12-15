@@ -13,7 +13,7 @@ export const fetchSchema = async (baseUrl: string, utils: Utils): Promise<{ sche
     resolveBodyOnly: true,
     responseType: 'json'
   })
-  
+
   spinner.stop()
   fetchSchemaTime.log('Fetched schema in %s')
 
