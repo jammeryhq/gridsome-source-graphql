@@ -1,8 +1,8 @@
 {
-  "name": "gridsome-source-wordpress-experimental",
+  "name": "@noxify/gridsome-source-graphql",
   "version": "0.1.0",
-  "description": "Experimental source plugin for WordPress, using the WP GraphQL plugin. Inspired by the Gatsby equivalent.",
-  "repository": "git@github.com:thetre97/gridsome-source-wordpress-experimental.git",
+  "description": "Experimental source plugin for GraphQL.",
+  "repository": "git@github.com:noxify/gridsome-source-graphql.git",
   "author": "Travis Reynolds <travis@travisreynolds.dev>",
   "license": "MIT",
   "main": "dist/index.js",
