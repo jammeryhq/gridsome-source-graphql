@@ -1,6 +1,6 @@
 // Packages
 import { createSchema } from './schema'
-import { excludedFields, excludedTypes, reporter, createTimer } from './utils'
+import { reporter, createTimer } from './utils'
 import { importData } from './data'
 //import { contentActions } from './content'
 
@@ -13,29 +13,26 @@ export interface SourceOptions {
   //content: boolean | { images: boolean; links: boolean }
 }
 
-const GridsomeSourceGraphQl = (api: never, config: SourceOptions) => {
+const GridsomeSourceGraphQl = (api: any, config: SourceOptions) => {
   const { typeName = 'GraphQl', baseUrl = '', log = false, concurrency = 8 } = config
 
   if (!baseUrl) throw new Error('Missing the `baseUrl` config option.')
   if (!typeName) throw new Error('Missing the `typeName` config option.')
   const timer = createTimer(log)
 
-  api.loadSource(async (actions: unknown) => {
+  api.loadSource(async (actions: any) => {
     const runtimeTimer = timer()
 
     const scalarTypes = ['String', 'Int', 'Float', 'Boolean', 'ID']
     const prefix = (name: string) => (scalarTypes.includes(name) ? name : `${typeName}${name}`)
 
-    //log('### Prefix', prefix)
-    const utils = { baseUrl, typeName, prefix, concurrency, log, timer, perPage: 100, excluded: { fields: excludedFields, types: excludedTypes } }
+    const utils = { baseUrl, typeName, prefix, concurrency, log, timer, perPage: 100 }
 
     // Create Schema
     try {
       const schema = await createSchema(actions, utils)
 
       await importData(schema, actions, utils)
-
-      //await contentActions(data, actions, { config, utils })
     } catch (error) {
       reporter.error(error.message)
     }

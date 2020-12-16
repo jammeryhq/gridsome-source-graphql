@@ -1,7 +1,7 @@
 import consola from 'consola'
 import { hirestimeNode } from 'hirestime'
 
-export const reporter = consola.create({ defaults: { tag: 'gridsome-source-graphql' } })
+export const reporter = consola.create({ defaults: { tag: '@jammeryhq/gridsome-source-graphql' } })
 
 export interface Timer {
   (): {
@@ -28,36 +28,4 @@ export interface Utils {
   prefix(type: string): string
   timer: Timer
   typeName: string
-  excluded: {
-    fields: string[]
-    types: string[]
-  }
-  included?: string[]
 }
-
-export const excludedFields = [
-  'allSettings',
-  'cart',
-  'comments',
-  'contentNodes',
-  'contentTypes',
-  'coupons',
-  'customers',
-  'discussionSettings',
-  'generalSettings',
-  'orders',
-  'paymentGateways',
-  'plugins',
-  'readingSettings',
-  'refunds',
-  'registeredScripts',
-  'registeredStylesheets',
-  'revisions',
-  'themes',
-  'userRoles',
-  'viewer',
-  'visibleProducts',
-  'writingSettings'
-]
-
-export const excludedTypes = ['EnqueuedScript', 'EnqueuedStylesheet', 'DownloadableItem']

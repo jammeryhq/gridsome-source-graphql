@@ -1,9 +1,8 @@
 import { GraphQLEnumType, GraphQLInterfaceType, GraphQLObjectType, GraphQLUnionType } from 'graphql'
 import { FieldTransformer } from './transform-fields'
-import { Utils } from '../utils'
 
-export const TypeBuilder = (schema: any, utils: Utils) => {
-  const transformFields = FieldTransformer(utils)
+export const TypeBuilder = (schema: any) => {
+  const transformFields = FieldTransformer()
   return {
     interface: (type: GraphQLInterfaceType) => {
       const fields = transformFields(type)

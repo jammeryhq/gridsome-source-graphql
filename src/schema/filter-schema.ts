@@ -1,8 +1,8 @@
 import { GraphQLSchema } from 'graphql'
 import { visitSchema, VisitSchemaKind, renameType } from 'graphql-tools'
-import { Utils, excludedTypes } from '../utils'
+import { Utils } from '../utils'
 
-export const filterSchema = (schema: GraphQLSchema, { prefix, excluded, timer }: Utils) => {
+export const filterSchema = (schema: GraphQLSchema, { prefix, timer }: Utils) => {
   const filterSchemaTimer = timer()
 
   const filteredSchema = visitSchema(schema, {
@@ -13,11 +13,9 @@ export const filterSchema = (schema: GraphQLSchema, { prefix, excluded, timer }:
       return null
     },
     [VisitSchemaKind.OBJECT_TYPE](type) {
-      if (excludedTypes.includes(type.name)) return null
       return renameType(type, prefix(type.name))
     },
     [VisitSchemaKind.INTERFACE_TYPE](type) {
-      if (excluded.types.includes(type.name)) return null
       if (type.name !== 'Node') return renameType(type, prefix(type.name))
       return type
     },

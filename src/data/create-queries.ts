@@ -12,7 +12,6 @@ export const createQueries = (queryFields: GraphQLFieldMap<any, any>, fieldTrans
       const hasNonNullType = field.args.some(({ type }) => isNonNullType(type))
       const hasIDInput = field.args.find(({ type }) => getNamedType(type).toString() === 'ID')
       if (hasNonNullType || hasIDInput) return
-      if (utils.excluded.fields.includes(field.name)) return
 
       if (isObjectType(field.type)) {
         // Check if this is a `nodes` field: if so, we need to get the root type

@@ -1,13 +1,9 @@
-import { GraphQLObjectType, GraphQLInterfaceType, getNamedType, getNullableType, isObjectType } from 'graphql'
-import { Utils } from '../utils'
+import { GraphQLObjectType, GraphQLInterfaceType, getNullableType, isObjectType } from 'graphql'
 
-export const FieldTransformer = (utils: Utils) => (type: GraphQLObjectType | GraphQLInterfaceType) => {
+export const FieldTransformer = () => (type: GraphQLObjectType | GraphQLInterfaceType) => {
   const fields = type.getFields()
   const transformed = Object.entries(fields)
     .map(([key, field]) => {
-      const strippedName = getNamedType(field.type).toString()
-      if (utils.excluded.types.some(type => strippedName.includes(type))) return
-
       let type = getNullableType(field.type)
 
       // Get root node type of connections or edges
@@ -37,16 +33,16 @@ export const transformEnums = (enums: any, actions: any) => {
   const discardEnums = ['__DirectiveLocation', '__TypeKind']
   return enums
     .filter(({ name }: { name: string }) => !discardEnums.includes(name))
-    .map((type: any) => {
+    .map((fieldType: any) => {
       const values = Object.fromEntries(
-        type.enumValues.map(({ name, value, deprecationReason, description }: { name: string; value: string; deprecationReason: string; description: string }) => [
+        fieldType.enumValues.map(({ name, value, deprecationReason, description }: { name: string; value: string; deprecationReason: string; description: string }) => [
           name,
           { value, deprecationReason, description }
         ])
       )
       return actions.schema.createEnumType({
-        name: type.name,
-        description: type.description,
+        name: fieldType.name,
+        description: fieldType.description,
         values
       })
     })

@@ -9,7 +9,7 @@ export const createSchemaTypes = async (schema: GraphQLSchema, data: any, action
     const typeMap = schema.getTypeMap()
     const allTypes = Object.values(typeMap).filter(type => type.name.startsWith(utils.typeName) && !type.name.includes('Root') && !type.name.includes('Connection'))
 
-    const buildType = TypeBuilder(actions.schema, utils)
+    const buildType = TypeBuilder(actions.schema)
 
     const schemaTypes = allTypes.map(type => {
       if (isInterfaceType(type)) return buildType.interface(type)

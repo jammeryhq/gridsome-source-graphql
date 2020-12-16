@@ -24,7 +24,6 @@ export declare type FieldTransformer = (type: GraphQLObjectType) => FieldTransfo
 export const FieldTransformer = (schema: GraphQLSchema, utils: Utils) => (type: GraphQLObjectType): FieldTransform[] =>
   Object.values(type.getFields())
     .map(field => {
-      if (utils.excluded.fields.includes(field.name)) return
       const namedType = getNamedType(field.type) as GraphQLObjectType
 
       if (isScalarType(namedType)) {
@@ -40,7 +39,6 @@ export const FieldTransformer = (schema: GraphQLSchema, utils: Utils) => (type: 
         const nodesField = isConnectionField(namedType)
         if (nodesField) {
           const subType = getNamedType(nodesField.type)
-          if (utils.excluded.types.includes(subType.toString())) return
           return {
             name: field.name,
             type: subType.toString(),
@@ -52,7 +50,6 @@ export const FieldTransformer = (schema: GraphQLSchema, utils: Utils) => (type: 
         const nodeField = isConnectionEdgeField(namedType)
         if (nodeField) {
           const subType = getNamedType(nodeField.type)
-          if (utils.excluded.types.includes(subType.toString())) return
           return {
             name: field.name,
             type: subType.toString(),
