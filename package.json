@@ -1,6 +1,6 @@
 {
-  "name": "@noxify/gridsome-source-graphql",
-  "version": "0.1.0",
+  "name": "@jammeryhq/gridsome-source-graphql",
+  "version": "1.0.0",
   "description": "Experimental source plugin for GraphQL.",
   "repository": "git@github.com:noxify/gridsome-source-graphql.git",
   "author": "Travis Reynolds <travis@travisreynolds.dev>",
